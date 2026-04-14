@@ -1,6 +1,6 @@
-import { FullSlug, isFolderPath, resolveRelative } from "../util/path"
+import { FullSlug, isAbsoluteURL, isFolderPath, resolveRelative } from "../util/path"
 import { QuartzPluginData } from "../plugins/vfile"
-import { Date, getDate } from "./Date"
+import { getDate } from "./Date"
 import { QuartzComponent, QuartzComponentProps } from "./types"
 import { GlobalConfiguration } from "../cfg"
 
@@ -57,6 +57,14 @@ type Props = {
   sort?: SortFn
 } & QuartzComponentProps
 
+function resolveIconSrc(currentSlug: FullSlug, icon: string): string {
+  if (isAbsoluteURL(icon)) {
+    return icon
+  }
+
+  return resolveRelative(currentSlug, icon as FullSlug)
+}
+
 export const PageList: QuartzComponent = ({ cfg, fileData, allFiles, limit, sort }: Props) => {
   const sorter = sort ?? byDateAndAlphabeticalFolderFirst(cfg)
   let list = allFiles.sort(sorter)
@@ -67,35 +75,30 @@ export const PageList: QuartzComponent = ({ cfg, fileData, allFiles, limit, sort
   return (
     <ul class="section-ul">
       {list.map((page) => {
-        const title = page.frontmatter?.title
+        const title = page.frontmatter?.title ?? "Untitled"
         const tags = page.frontmatter?.tags ?? []
+        const icon = page.frontmatter?.icon
+        const href = resolveRelative(fileData.slug!, page.slug!)
+        const hasIcon = typeof icon === "string" && icon.length > 0
+        const tagSummary = tags.length > 0 ? tags.join(" · ") : undefined
 
         return (
           <li class="section-li">
-            <div class="section">
-              <p class="meta">
-                {page.dates && <Date date={getDate(cfg, page)!} locale={cfg.locale} />}
-              </p>
-              <div class="desc">
-                <h3>
-                  <a href={resolveRelative(fileData.slug!, page.slug!)} class="internal">
-                    {title}
-                  </a>
-                </h3>
+            <a href={href} class={`section-card internal${hasIcon ? " has-icon" : " no-icon"}`}>
+              <div class="card-main">
+                {hasIcon && (
+                  <div class="card-icon-wrap">
+                    <img
+                      class="card-icon"
+                      src={resolveIconSrc(fileData.slug!, icon)}
+                      alt={`${title} icon`}
+                    />
+                  </div>
+                )}
+                <h3>{title}</h3>
               </div>
-              <ul class="tags">
-                {tags.map((tag) => (
-                  <li>
-                    <a
-                      class="internal tag-link"
-                      href={resolveRelative(fileData.slug!, `tags/${tag}` as FullSlug)}
-                    >
-                      {tag}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
+              {tagSummary && <p class="meta tags-meta">{tagSummary}</p>}
+            </a>
           </li>
         )
       })}
@@ -104,11 +107,15 @@ export const PageList: QuartzComponent = ({ cfg, fileData, allFiles, limit, sort
 }
 
 PageList.css = `
-.section h3 {
+.section-card h3 {
   margin: 0;
 }
 
-.section > .tags {
-  margin: 0;
+.section-card {
+  color: inherit;
+}
+
+.section-card:hover h3 {
+  text-decoration: underline;
 }
 `
