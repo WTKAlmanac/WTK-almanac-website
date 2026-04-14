@@ -26,20 +26,24 @@ const headerRegex = new RegExp(/h[1-6]/)
 export function pageResources(
   baseDir: FullSlug | RelativeURL,
   staticResources: StaticResources,
+  version?: string,
 ): StaticResources {
-  const contentIndexPath = joinSegments(baseDir, "static/contentIndex.json")
+  const versionedUrl = (url: string) =>
+    version ? `${url}${url.includes("?") ? "&" : "?"}v=${encodeURIComponent(version)}` : url
+
+  const contentIndexPath = versionedUrl(joinSegments(baseDir, "static/contentIndex.json"))
   const contentIndexScript = `const fetchData = fetch("${contentIndexPath}").then(data => data.json())`
 
   const resources: StaticResources = {
     css: [
       {
-        content: joinSegments(baseDir, "index.css"),
+        content: versionedUrl(joinSegments(baseDir, "index.css")),
       },
       ...staticResources.css,
     ],
     js: [
       {
-        src: joinSegments(baseDir, "prescript.js"),
+        src: versionedUrl(joinSegments(baseDir, "prescript.js")),
         loadTime: "beforeDOMReady",
         contentType: "external",
       },
@@ -55,7 +59,7 @@ export function pageResources(
   }
 
   resources.js.push({
-    src: joinSegments(baseDir, "postscript.js"),
+    src: versionedUrl(joinSegments(baseDir, "postscript.js")),
     loadTime: "afterDOMReady",
     moduleType: "module",
     contentType: "external",
