@@ -25,6 +25,7 @@ export const defaultContentPageLayout: PageLayout = {
     Component.AuthorList({ label: "作者" }),
     Component.ContentMeta(),
     Component.TagList(),
+    Component.NoteIcon(),
   ],
   left: [
     Component.PageTitle(),
