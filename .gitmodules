@@ -2,3 +2,7 @@
 	path = content/官盗
 	url = https://github.com/WTKAlmanac/WTK-low-priced-almanac.git
 	branch = main
+[submodule "content/官正"]
+	path = content/官正
+	url = https://github.com/WTKAlmanac/WTK-core-almanac.git
+	branch = main
