@@ -1,5 +1,6 @@
 import { PageLayout, SharedLayout } from "./quartz/cfg"
 import * as Component from "./quartz/components"
+import icpConfig from "./icp.config"
 
 // components shared across all pages
 export const sharedPageComponents: SharedLayout = {
@@ -7,16 +8,16 @@ export const sharedPageComponents: SharedLayout = {
   header: [],
   afterBody: [
     Component.Comments({
-      provider: 'giscus',
+      provider: "giscus",
       options: {
-        repo: 'WTKAlmanac/WTK-almanac-website',
-        repoId: 'R_kgDOSBIo_A',
-        category: 'Announcements',
-        categoryId: 'DIC_kwDOSBIo_M4C61Zt',
-        mapping: 'pathname',
-        inputPosition: 'top',
-        lang: 'zh-CN'
-      }
+        repo: "WTKAlmanac/WTK-almanac-website",
+        repoId: "R_kgDOSBIo_A",
+        category: "Announcements",
+        categoryId: "DIC_kwDOSBIo_M4C61Zt",
+        mapping: "pathname",
+        inputPosition: "top",
+        lang: "zh-CN",
+      },
     }),
   ],
   footer: Component.Footer({
@@ -24,6 +25,7 @@ export const sharedPageComponents: SharedLayout = {
       GitHub: "https://github.com/jackyzha0/quartz",
       "Discord Community": "https://discord.gg/cRFFHYye7t",
     },
+    icp: icpConfig.records,
   }),
 }
 
@@ -64,7 +66,11 @@ export const defaultContentPageLayout: PageLayout = {
 
 // components for pages that display lists of pages  (e.g. tags or folders)
 export const defaultListPageLayout: PageLayout = {
-  beforeBody: [Component.Breadcrumbs({ rootName: "主页" }), Component.ArticleTitle(), Component.ContentMeta()],
+  beforeBody: [
+    Component.Breadcrumbs({ rootName: "主页" }),
+    Component.ArticleTitle(),
+    Component.ContentMeta(),
+  ],
   left: [
     Component.PageTitle(),
     Component.MobileOnly(Component.Spacer()),
