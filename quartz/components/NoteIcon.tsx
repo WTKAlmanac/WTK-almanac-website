@@ -37,10 +37,16 @@ export default (() => {
 
   .note-icon-image {
     display: block;
-    max-width: min(100%, 7rem);
+    max-width: min(100%, 14rem);
     height: auto;
     border-radius: 12px;
     object-fit: contain;
+  }
+
+  @media all and (max-width: 800px) {
+    .note-icon-image {
+      max-width: min(100%, 10rem);
+    }
   }
   `
 
