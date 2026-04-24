@@ -2,6 +2,8 @@ import { PageLayout, SharedLayout } from "./quartz/cfg"
 import * as Component from "./quartz/components"
 import icpConfig from "./icp.config"
 
+const repoUrl = "https://github.com/WTKAlmanac/WTK-almanac-website"
+
 // components shared across all pages
 export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
@@ -9,8 +11,7 @@ export const sharedPageComponents: SharedLayout = {
   afterBody: [],
   footer: Component.Footer({
     links: {
-      GitHub: "https://github.com/jackyzha0/quartz",
-      "Discord Community": "https://discord.gg/cRFFHYye7t",
+      GitHub: repoUrl,
     },
     icp: icpConfig.records,
   }),
