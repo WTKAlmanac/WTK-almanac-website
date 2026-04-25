@@ -65,6 +65,20 @@ function resolveIconSrc(currentSlug: FullSlug, icon: string): string {
   return resolveRelative(currentSlug, icon as FullSlug)
 }
 
+const hiddenPageListTagNames = new Set(["官正", "官盗", "宽卡", "窄卡"])
+const hiddenPageListTagPrefixes = ["E", "K", "S", "I", "X"]
+
+function shouldShowPageListTag(tag: string): boolean {
+  const normalizedTag = tag.trim()
+
+  return (
+    normalizedTag.length > 0 &&
+    !hiddenPageListTagNames.has(normalizedTag) &&
+    !hiddenPageListTagPrefixes.some((prefix) => normalizedTag.startsWith(prefix)) &&
+    !normalizedTag.includes("芯")
+  )
+}
+
 export const PageList: QuartzComponent = ({ cfg, fileData, allFiles, limit, sort }: Props) => {
   const sorter = sort ?? byDateAndAlphabeticalFolderFirst(cfg)
   let list = allFiles.sort(sorter)
@@ -76,7 +90,7 @@ export const PageList: QuartzComponent = ({ cfg, fileData, allFiles, limit, sort
     <ul class="section-ul">
       {list.map((page) => {
         const title = page.frontmatter?.title ?? "Untitled"
-        const tags = page.frontmatter?.tags ?? []
+        const tags = (page.frontmatter?.tags ?? []).filter(shouldShowPageListTag)
         const icon = page.frontmatter?.icon
         const href = resolveRelative(fileData.slug!, page.slug!)
         const hasIcon = typeof icon === "string" && icon.length > 0
