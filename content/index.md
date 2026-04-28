@@ -5,11 +5,15 @@ date: 2026-04-13
 
 # 三国杀线下产品图鉴
 
-这里记录了各种三国杀线下产品，如需补充可自行提交 PR，如有错误可提交 Issue。
+这里记录了各种三国杀线下产品。
 
-- [组织链接](https://github.com/WTKAlmanac)
-- [官正图鉴](https://github.com/WTKAlmanac/WTK-core-almanac)
-- [官盗图鉴](https://github.com/WTKAlmanac/WTK-low-priced-almanac)
+- [官正图鉴](官正)
+- [官盗图鉴](官盗)
+
+# 如何使用
+
+手机端点击左上角打开目录，在目录中寻找自己想查阅的条目，或通过上方搜索栏查找。
+电脑端在左侧“探索”处寻找自己想查阅的条目，或通过左侧上方搜索栏查找。
 
 # 如何贡献
 
@@ -20,6 +24,10 @@ date: 2026-04-13
 你不需要使用命令行，也不需要知道 Git 的底层原理。
 
 如果你不想操作 GitHub，也可以直接把资料、图片、来源链接和署名发给维护者，由维护者代为整理。
+
+- [组织链接](https://github.com/WTKAlmanac)
+- [官正仓库](https://github.com/WTKAlmanac/WTK-core-almanac)
+- [官盗仓库](https://github.com/WTKAlmanac/WTK-low-priced-almanac)
 
 ## 1. 你需要安装什么
 
