@@ -11,3 +11,10 @@ private/
 replit.nix
 icon.png
 icp.config.ts
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+.env*
+!.env.example
