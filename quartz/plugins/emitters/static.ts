@@ -18,6 +18,13 @@ export const Static: QuartzEmitterPlugin = () => ({
       await fs.promises.copyFile(src, dest)
       yield dest
     }
+
+    const rootIconPath = "icon.png" as FilePath
+    if (fs.existsSync(rootIconPath)) {
+      const dest = joinSegments(argv.output, "icon.png") as FilePath
+      await fs.promises.copyFile(rootIconPath, dest)
+      yield dest
+    }
   },
   async *partialEmit() {},
 })

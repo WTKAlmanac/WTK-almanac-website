@@ -16,5 +16,29 @@ footer {
   & ul.icp {
     margin-top: 0.5rem;
     flex-wrap: wrap;
+
+    & li,
+    & a,
+    & span {
+      line-height: 1.2;
+    }
+
+    & li {
+      display: inline-flex;
+      align-items: center;
+    }
+  }
+
+  & .public-security-beian {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+
+    & img {
+      display: block;
+      width: 1em;
+      height: 1em;
+      flex: 0 0 auto;
+    }
   }
 }

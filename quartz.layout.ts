@@ -14,6 +14,8 @@ export const sharedPageComponents: SharedLayout = {
       GitHub: repoUrl,
     },
     icp: icpConfig.records,
+    publicSecurity: icpConfig.publicSecurityRecords,
+    publicSecurityIcon: icpConfig.publicSecurityIcon,
   }),
 }
 
